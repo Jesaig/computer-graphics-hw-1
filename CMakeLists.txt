@@ -1,6 +1,6 @@
 # CMake entry point
 cmake_minimum_required (VERSION 3.0)
-project (TwoTriangles)
+project (Homework1)
 
 find_package(OpenGL REQUIRED)
 
@@ -76,6 +76,25 @@ create_target_launcher(two_triangles WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_D
 create_default_target_launcher(two_triangles WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/two_triangles/") # tut 1 is not the default or people would complain that tut 2 doesn't work
 
 
+# Шcosahedron
+add_executable(icosahedron
+		icosahedron/icosahedron.cpp
+		common/shader.cpp
+		common/shader.hpp
+		common/controls.hpp
+		common/controls.cpp
+
+		icosahedron/ColorFragmentShader.fragmentshader
+		icosahedron/TransformVertexShader.vertexshader
+		)
+target_link_libraries(icosahedron
+		${ALL_LIBS}
+		)
+# Xcode and Visual working directories
+set_target_properties(icosahedron PROPERTIES XCODE_ATTRIBUTE_CONFIGURATION_BUILD_DIR "${CMAKE_CURRENT_SOURCE_DIR}/icosahedron/")
+create_target_launcher(icosahedron WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/icosahedron/")
+
+
 SOURCE_GROUP(common REGULAR_EXPRESSION ".*/common/.*" )
 SOURCE_GROUP(shaders REGULAR_EXPRESSION ".*/.*shader$" )
 
@@ -85,7 +104,10 @@ add_custom_command(
    TARGET two_triangles POST_BUILD
    COMMAND ${CMAKE_COMMAND} -E copy "${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_CFG_INTDIR}/two_triangles${CMAKE_EXECUTABLE_SUFFIX}" "${CMAKE_CURRENT_SOURCE_DIR}/two_triangles/"
 )
-
+add_custom_command(
+		TARGET icosahedron POST_BUILD
+		COMMAND ${CMAKE_COMMAND} -E copy "${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_CFG_INTDIR}/icosahedron${CMAKE_EXECUTABLE_SUFFIX}" "${CMAKE_CURRENT_SOURCE_DIR}/icosahedron/"
+)
 
 
 elseif (${CMAKE_GENERATOR} MATCHES "Xcode" )
