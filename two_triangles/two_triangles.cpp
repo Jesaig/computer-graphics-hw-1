@@ -82,8 +82,8 @@ int main( void )
     glBufferData(GL_ARRAY_BUFFER, sizeof(g_vertex_buffer_data), g_vertex_buffer_data, GL_STATIC_DRAW);
 
     static const GLfloat second_g_vertex_buffer_data[] = {
-            0.0f, 0.8f, 0.8f,
-            0.0f, 0.8f, -0.8f,
+            0.8f, 0.8f, 0.0f,
+            -0.8f, 0.8f, 0.0f,
             0.0f,  -0.8f, 0.0f,
     };
 
